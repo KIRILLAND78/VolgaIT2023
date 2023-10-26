@@ -102,7 +102,7 @@ builder.Services.AddAuthorization(opts =>
     });
 });
 var g = builder.Configuration.GetConnectionString("AppDB");
-builder.Services.AddDbContext<DatabaseContext>(o => { o.EnableDetailedErrors().EnableSensitiveDataLogging().UseNpgsql(builder.Configuration.GetConnectionString("AppDB")); });
+builder.Services.AddDbContext<DatabaseContext>(o => { o.EnableDetailedErrors().EnableSensitiveDataLogging().UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING")); });
 
 builder.Services.AddTransient<JWTService>();
 builder.Services.AddHttpContextAccessor();
