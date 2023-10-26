@@ -16,6 +16,7 @@ namespace VolgaIT2023.Models
         }
         public void End(double Lat, double Long)
         {
+            if (TimeEnd != null) throw new Exception("Rent Has Ended Already");
             RentedTransport.Latitude = Lat;
             RentedTransport.CanBeRented = true;
             RentedTransport.Longitude = Long;//TODO CHECK IF THEY ARE CHANGED
@@ -29,8 +30,11 @@ namespace VolgaIT2023.Models
             {
                 time = (int)(Difference.TotalMinutes);
             }
+            time += 1;//т.к. преобразование в int обрезает запятую и мы предпочитаем,
+                      //чтобы за неполный день аренды взималась полная плата
             TimeEnd = DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture);
             FinalPrice = (PriceOfUnit * time);
+            RentedTransport.Owner.Balance+= (double)FinalPrice;
             User.Balance-=(double)FinalPrice;
         }
         public void Update(Rent rent)
