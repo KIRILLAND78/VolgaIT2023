@@ -19,6 +19,10 @@ namespace VolgaIT2023.Models
         {
             this.Update(request);
         }
+        public Account(AccountAdminCreateRequest request)
+        {
+            this.Update(request);
+        }
         public Account(Account request)
         {
             this.Update(request);
@@ -29,6 +33,13 @@ namespace VolgaIT2023.Models
             this.Password = request.Password;
         }
         public void Update(Account request)
+        {
+            this.Username = request.Username;
+            this.Password = request.Password;
+            this.Balance = request.Balance;
+            this.IsAdmin = request.IsAdmin;
+        }
+        public void Update(AccountAdminCreateRequest request)
         {
             this.Username = request.Username;
             this.Password = request.Password;
@@ -48,7 +59,9 @@ namespace VolgaIT2023.Models
         public string Username { get; set; } = "";
         [Required]
         public string Password { get; set; } = "";
+        [Required]
         public bool IsAdmin { get; set; } = false;
+        [Required]
         public double Balance { get; set; }
         [JsonIgnore]
         public virtual ICollection<Transport> Transports { get; }
@@ -69,5 +82,13 @@ namespace VolgaIT2023.Models
     {
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
+    }
+    [ModelMetadataType(typeof(Account))]
+    public class AccountAdminCreateRequest
+    {
+        public string Username { get; set; } = "";
+        public string Password { get; set; } = "";
+        public bool IsAdmin { get; set; } = false;
+        public double Balance { get; set; }
     }
 }

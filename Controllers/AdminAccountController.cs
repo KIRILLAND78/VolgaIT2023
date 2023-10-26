@@ -31,14 +31,14 @@ namespace VolgaIT2023.Controllers
 
         //POST: api/{AdminAccountController}
         [HttpPost]
-        public ApiResponse Create([FromBody] Account account)
+        public ApiResponse Create([FromBody] AccountAdminCreateRequest account)
         {
             return new ApiResponse(_accountAdminService.CreateAccount(account));
         }
 
         //PUT: api/{AdminAccountController}/{accountId}
         [HttpPut("{accountId}")]
-        public ApiResponse Edit([FromRoute] long accountId, [FromBody] Account account)
+        public ApiResponse Edit([FromRoute] long accountId, [FromBody] AccountAdminCreateRequest account)
         {
             return new ApiResponse(_accountAdminService.UpdateAccount(accountId, account));
         }
