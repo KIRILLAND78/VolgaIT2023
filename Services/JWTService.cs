@@ -12,7 +12,8 @@ namespace VolgaIT2023.Services
     public class JWTService
     {
         DatabaseContext _db;
-        public JWTService([FromServices] DatabaseContext db) { _db = db; }
+        IConfiguration _configuration;
+        public JWTService([FromServices] DatabaseContext db, [FromServices] IConfiguration configuration) { _db = db; _configuration = configuration; }
 
         public List<Claim>? AddSessionGetClaims(IAccountSignData sign, DateTime expires)
         {
@@ -38,7 +39,7 @@ namespace VolgaIT2023.Services
         public string GenerateToken(IAccountSignData sign)
         {
             DateTime now = DateTime.UtcNow;
-            DateTime expireTime = now.Add(TimeSpan.FromMinutes(Convert.ToInt64(Environment.GetEnvironmentVariable("TOKEN_LIFETIME")??"60")));//Стоит добавить в руководстве, что по умолчанию asp разрешает в 5-минутном диапазоне использовать токены после истечения срока его жизни. 
+            DateTime expireTime = now.Add(TimeSpan.FromMinutes(_configuration.GetValue<double>("TOKEN_LIFETIME")));//Стоит добавить в руководстве, что по умолчанию asp разрешает в 5-минутном диапазоне использовать токены после истечения срока его жизни. 
 
             List<Claim> identity = AddSessionGetClaims(sign, expireTime);
             if (identity == null)
@@ -50,7 +51,7 @@ namespace VolgaIT2023.Services
             notBefore: now,
             claims: identity,
             expires: expireTime,
-            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY"))), SecurityAlgorithms.HmacSha256));
+            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(_configuration.GetValue<string>("JWT_KEY"))), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             return encodedJwt;
         }

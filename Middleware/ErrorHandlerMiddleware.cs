@@ -5,7 +5,11 @@ namespace VolgaIT2023.Middleware
 {
     public class ErrorHandlerMiddleware : IMiddleware
     {
-
+        IWebHostEnvironment _environment;
+        public ErrorHandlerMiddleware(IWebHostEnvironment environment)
+        {
+            _environment = environment;
+        }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
 
@@ -30,7 +34,9 @@ namespace VolgaIT2023.Middleware
             {
                 context.Response.Headers.ContentType = "application/json";
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsJsonAsync(new ApiResponse(new { Message = ex.Message, Trace = (ex.StackTrace) }, "Error"));
+                object exception = new { Message = ex.Message, Source = (ex.Source), Trace = (ex.StackTrace) };
+                if (!_environment.IsDevelopment()) exception = new { Message = ex.Message };
+                await context.Response.WriteAsJsonAsync(new ApiResponse(exception, "Error"));
             }
         }
     }

@@ -83,7 +83,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 ValidateLifetime = true,
-                IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY"))),
+                IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("JWT_KEY"))),
                 ValidateIssuerSigningKey = true
             };
         
@@ -102,7 +102,7 @@ builder.Services.AddAuthorization(opts =>
     });
 });
 var g = builder.Configuration.GetConnectionString("AppDB");
-builder.Services.AddDbContext<DatabaseContext>(o => { o.EnableDetailedErrors().EnableSensitiveDataLogging().UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING")); });
+builder.Services.AddDbContext<DatabaseContext>(o => { o.EnableDetailedErrors().EnableSensitiveDataLogging(false).UseNpgsql(builder.Configuration.GetValue<string>("DATABASE_CONNECTION_STRING")); });
 
 builder.Services.AddTransient<JWTService>();
 builder.Services.AddHttpContextAccessor();
@@ -124,9 +124,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseAuthentication();
