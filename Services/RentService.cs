@@ -44,10 +44,9 @@ namespace VolgaIT2023.Services
         }
         public Rent EndRent(long id, double Lat, double Long)
         {
-            var rent = _databaseContext.Rents.Where(i=>i.Id==id).Include(i=>i.User).Include(i=>i.RentedTransport).FirstOrDefault();
+            var rent = _databaseContext.Rents.Where(i=>i.Id==id).Include(i=>i.User).Include(i=>i.RentedTransport).ThenInclude(i=>i.Owner).FirstOrDefault();
             if (rent == null) throw new NotFoundException("Rent");
             if (rent.UserId != AuthorisedUser.Id) throw new UnauthorizedException();
-            if (rent.TimeEnd!=null) throw new Exception("Rent Has Ended");
             rent.End(Lat, Long);
             //_databaseContext.Update(rent);
             _databaseContext.SaveChanges();

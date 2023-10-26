@@ -44,9 +44,9 @@ namespace VolgaIT2023.Controllers
 
         //DELETE: api/{AdminTransportController/{id}}
         [HttpDelete("{id}")]
-        public ApiResponse Delete([FromRoute] long transportId)
+        public ApiResponse Delete([FromRoute] long id)
         {
-            return new ApiResponse(_transportAdminService.DeleteTransport(transportId));
+            return new ApiResponse(_transportAdminService.DeleteTransport(id));
         }
     }
 }

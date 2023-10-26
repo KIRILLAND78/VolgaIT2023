@@ -45,24 +45,24 @@ namespace VolgaIT2023.Controllers
         }
 
         //POST: api/{AdminRentController}/Rent/End/{rentId}
-        [HttpPost("Rent/{rentId}")]
-        public ApiResponse End([FromRoute]long id, [FromQuery] double Lat, [FromQuery] double Long)//todo
+        [HttpPost("Rent/End/{rentId}")]
+        public ApiResponse End([FromRoute]long rentId, [FromQuery] double Lat, [FromQuery] double Long)//todo
         {
-            return new ApiResponse(_rentAdminService.EndRent(id, Lat, Long));
+            return new ApiResponse(_rentAdminService.EndRent(rentId, Lat, Long));
         }
 
         //PUT: api/{AdminRentController}/Rent/{rentId}
         [HttpPut("Rent/{rentId}")]
-        public ApiResponse Edit([FromRoute] long id, [FromBody] RentAdminCreateRequest rent)
+        public ApiResponse Edit([FromRoute] long rentId, [FromBody] RentAdminCreateRequest rent)
         {
-            return new ApiResponse(_rentAdminService.UpdateRent(id, rent));
+            return new ApiResponse(_rentAdminService.UpdateRent(rentId, rent));
         }
 
-        //Delete: api/{AdminRentController}/Rent/End/{rentId}
+        //Delete: api/{AdminRentController}/Rent/{rentId}
         [HttpDelete("Rent/{rentId}")]
-        public ApiResponse Delete([FromRoute] long id)
+        public ApiResponse Delete([FromRoute] long rentId)
         {
-            return new ApiResponse(_rentAdminService.DeleteRent(id));
+            return new ApiResponse(_rentAdminService.DeleteRent(rentId));
         }
     }
 }

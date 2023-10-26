@@ -9,13 +9,13 @@ namespace VolgaIT2023.Services
         {
             if (AuthorisedUser == null || !AuthorisedUser.IsAdmin) throw new UnauthorizedException();
         }
-        public Account CreateAccount(Account request)
+        public Account CreateAccount(AccountAdminCreateRequest request)
         {
-            _databaseContext.Add(request);
+            Account res = _databaseContext.Add(new Account(request)).Entity;
             _databaseContext.SaveChanges();
-            return request;
+            return res;
         }
-        public Account UpdateAccount(long id, Account request)
+        public Account UpdateAccount(long id, AccountAdminCreateRequest request)
         {
             Account? acc = _databaseContext.Accounts.Find(id);
             if (acc == null) throw new NotFoundException("Account");
