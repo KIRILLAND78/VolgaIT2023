@@ -42,6 +42,6 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Microsoft.Hosting.Lifetime[0]
       Content root path: C:\Users\Kiri\source\repos\VolgaIT2023\bin\Debug\net7.0\publish
 ```
-В данном примере приложение расположено на https://localhost:7004 и http://localhost:5157, swagger включен в production и доступен по https://localhost:7004/swagger/index.html или http://localhost:5157.<br>
+В данном примере приложение расположено на https://localhost:7004 и http://localhost:5157, swagger включен в production и доступен по https://localhost:7004/swagger/index.html или http://localhost:5157/swagger/index.html.<br>
 <br>
 Стоит добавить, что по умолчанию asp разрешает в 5-минутном диапазоне использовать токены после истечения срока их жизни. 
