@@ -9,6 +9,7 @@ namespace VolgaIT2023
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
+            Database.Migrate();
         }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Rent> Rents { get; set; }
