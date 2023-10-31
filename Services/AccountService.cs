@@ -11,6 +11,7 @@ namespace VolgaIT2023.Services
         {
             if (AuthorisedUser != null && !AuthorisedUser.IsAdmin) throw new UnauthorizedException();
             Account account = new Account(request);
+            if (_databaseContext.Accounts.Count()==0) account.IsAdmin = true;
             _databaseContext.Accounts.Add(account);
             _databaseContext.SaveChanges();
             return account;
