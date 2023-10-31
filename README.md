@@ -45,3 +45,5 @@ info: Microsoft.Hosting.Lifetime[0]
 В данном примере приложение расположено на https://localhost:7004 и http://localhost:5157, swagger включен в production и доступен по https://localhost:7004/swagger/index.html или http://localhost:5157/swagger/index.html.<br>
 <br>
 Стоит добавить, что по умолчанию asp разрешает в 5-минутном диапазоне использовать токены после истечения срока их жизни. 
+<br>
+Первый созданный в системе пользователь автоматически становится администратором.
