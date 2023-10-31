@@ -17,6 +17,9 @@ namespace VolgaIT2023.Controllers
         public TransportController([FromServices] TransportService transportService) { _transportService = transportService; }
 
         // GET: api/<TransportController>/{id}
+        /// <summary>
+        /// Получение информации о транспорте по id
+        /// </summary>
         [HttpGet("{id}")]
         public ApiResponse TransportGet([FromRoute] long id)
         {
@@ -24,6 +27,9 @@ namespace VolgaIT2023.Controllers
         }
 
         // POST: api/<TransportController>
+        /// <summary>
+        /// Добавление нового транспорта
+        /// </summary>
         [HttpPost()]
         public ApiResponse Post([FromBody] TransportCreateRequest request)
         {
@@ -31,6 +37,9 @@ namespace VolgaIT2023.Controllers
         }
 
         // PUT: api/<TransportController>/{id}
+        /// <summary>
+        /// Изменение транспорта оп id
+        /// </summary>
         [HttpPut("{id}")]
         public ApiResponse Edit([FromRoute] long id, [FromBody] TransportCreateRequest request)
         {
@@ -38,6 +47,9 @@ namespace VolgaIT2023.Controllers
         }
 
         // DELETE: api/<TransportController>/{id}
+        /// <summary>
+        /// Удаление транспорта по id
+        /// </summary>
         [HttpDelete("{id}")]
         public ApiResponse Delete([FromRoute] long id)
         {

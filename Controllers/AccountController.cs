@@ -17,22 +17,33 @@ namespace VolgaIT2023.Controllers
     {
         AccountService _accountService;
         public AccountController([FromServices]AccountService accountService) { _accountService = accountService; }
+        
         // GET: api/<AccountController>/Me
+        /// <summary>
+        /// получение данных о текущем аккаунте
+        /// </summary>
         [HttpGet("Me")]
         public ApiResponse Me()
         {
             return new ApiResponse(_accountService.GetSelfInfo());
         }
-        [AllowAnonymous]
+
         // POST api/<AccountController>/SignIn
+        /// <summary>
+        /// получение нового jwt токена пользователя
+        /// </summary>
+        [AllowAnonymous]
         [HttpPost("SignIn")]
         public ApiResponse SignIn([FromServices] JWTService jwt, [FromBody] AccountSignRequest request)
         {
             return new ApiResponse(jwt.GenerateToken(request));
         }
 
-        [AllowAnonymous]
         // POST api/<AccountController>/SignUp
+        /// <summary>
+        /// регистрация нового аккаунта
+        /// </summary>
+        [AllowAnonymous]
         [HttpPost("SignUp")]
         public ApiResponse SignUp([FromServices] JWTService jwt, [FromBody] AccountCreateRequest request)
         {
@@ -41,6 +52,9 @@ namespace VolgaIT2023.Controllers
         }
 
         // POST api/<AccountController>/SignOut
+        /// <summary>
+        /// выход из аккаунта (jwt-токен перестает работать)
+        /// </summary>
         [HttpPost("SignOut")]
         public ApiResponse SignOut([FromServices] JWTService jwt)
         {
@@ -50,27 +64,13 @@ namespace VolgaIT2023.Controllers
 
 
         // PUT api/<AccountController>/Update
+        /// <summary>
+        /// обновление своего аккаунта
+        /// </summary>
         [HttpPut("Update")]
         public ApiResponse Update([FromBody] AccountCreateRequest account)
         {
             return new ApiResponse(_accountService.UpdateAccount(account));
-        }
-
-        // PUT api/<AccountController>/SETADMIN
-        [HttpPut("SETADMIN")]
-        public ApiResponse Adminise([FromServices] DatabaseContext db, [FromBody] AccountSignRequest account)
-        {
-            Account? a = db.Accounts.Where(i => i.Username == account.Username).FirstOrDefault();
-            a.IsAdmin = true;
-            db.SaveChanges();
-            return new ApiResponse();
-        }
-        // PUT api/<AccountController>/SETADMIN
-        [AllowAnonymous]
-        [HttpGet("SESSIONS")]
-        public ApiResponse Sessions([FromServices] DatabaseContext db)
-        {
-            return new ApiResponse(db.Sessions.AsEnumerable());
         }
 
     }

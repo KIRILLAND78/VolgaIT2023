@@ -21,6 +21,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{RentController}/Transport
+        /// <summary>
+        /// Получение транспорта доступного для аренды по параметрам
+        /// </summary>
         [AllowAnonymous]
         [HttpGet("Transport")]
         public ApiResponse Transport([FromQuery] TransportListRequest request)
@@ -29,6 +32,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{RentController}/{rentId}
+        /// <summary>
+        /// Получение информации об аренде по id
+        /// </summary>
         [HttpGet("{rentId}")]
         public ApiResponse GetId([FromRoute] long rentId)
         {
@@ -36,6 +42,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{RentController}/MyHistory
+        /// <summary>
+        /// Получение истории аренд текущего аккаунта
+        /// </summary>
         [HttpGet("MyHistory")]
         public ApiResponse History()
         {
@@ -43,6 +52,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{RentController}/TransportHistory/{transportId}
+        /// <summary>
+        /// Получение истории аренд транспорта
+        /// </summary>
         [HttpGet("TransportHistory/{transportId}")]
         public ApiResponse TransportHistory([FromRoute] long transportId)
         {
@@ -50,6 +62,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //POST: api/{RentController}/New/{transportId}
+        /// <summary>
+        /// Аренда транспорта в личное пользование
+        /// </summary>
         [HttpPost("New/{transportId}")]
         public ApiResponse NewRent([FromRoute] long transportId,
         [RegularExpression("Days|Minutes", ErrorMessage = "rentType must be Days or Minutes.")][FromQuery] string rentType)
@@ -58,6 +73,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //POST: api/{RentController}/New/{transportId}
+        /// <summary>
+        /// Завершение аренды транспорта по id аренды
+        /// </summary>
         [HttpPost("End/{rentId}")]
         public ApiResponse EndRent([FromRoute] long rentId, [FromQuery] double Lat, [FromQuery] double Long)
         {

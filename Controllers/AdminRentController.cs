@@ -17,6 +17,9 @@ namespace VolgaIT2023.Controllers
         public AdminRentController([FromServices] RentAdminService rentAdminService) { _rentAdminService = rentAdminService; }
 
         //GET: api/{AdminRentController}/Rent/{rentId}
+        /// <summary>
+        /// Получение информации по аренде по id
+        /// </summary>
         [HttpGet("Rent/{rentId}")]
         public ApiResponse Get([FromRoute] long rentId)
         {
@@ -24,6 +27,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{AdminRentController}/UserHistory/{userId}
+        /// <summary>
+        /// Получение истории аренд пользователя с id={userId}
+        /// </summary>
         [HttpGet("UserHistory/{userId}")]
         public ApiResponse IndexUserHistory([FromRoute] long userId)
         {
@@ -31,6 +37,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{AdminRentController}/TransportHistory/{transportId}
+        /// <summary>
+        /// Получение истории аренд транспорта с id={transportId}
+        /// </summary>
         [HttpGet("TransportHistory/{transportId}")]
         public ApiResponse IndexTransportHistory([FromRoute] long transportId)
         {
@@ -38,6 +47,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //POST: api/{AdminRentController}/Rent
+        /// <summary>
+        /// Создание новой аренды
+        /// </summary>
         [HttpPost("Rent")]
         public ApiResponse Create([FromBody] RentAdminCreateRequest rent)
         {
@@ -45,6 +57,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //POST: api/{AdminRentController}/Rent/End/{rentId}
+        /// <summary>
+        /// Завершение аренды транспорта по id аренды
+        /// </summary>
         [HttpPost("Rent/End/{rentId}")]
         public ApiResponse End([FromRoute]long rentId, [FromQuery] double Lat, [FromQuery] double Long)//todo
         {
@@ -52,6 +67,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //PUT: api/{AdminRentController}/Rent/{rentId}
+        /// <summary>
+        /// Изменение записи об аренде по id
+        /// </summary>
         [HttpPut("Rent/{rentId}")]
         public ApiResponse Edit([FromRoute] long rentId, [FromBody] RentAdminCreateRequest rent)
         {
@@ -59,6 +77,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //Delete: api/{AdminRentController}/Rent/{rentId}
+        /// <summary>
+        /// Удаление информации об аренде по id
+        /// </summary>
         [HttpDelete("Rent/{rentId}")]
         public ApiResponse Delete([FromRoute] long rentId)
         {

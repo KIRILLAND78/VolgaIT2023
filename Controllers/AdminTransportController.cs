@@ -15,6 +15,9 @@ namespace VolgaIT2023.Controllers
         public AdminTransportController([FromServices] TransportAdminService transportAdminService, [FromServices] TransportService transportService) { _transportAdminService = transportAdminService; _transportService = transportService; }
 
         //GET: api/{AdminTransportController}
+        /// <summary>
+        /// Получение списка всех транспортных средств
+        /// </summary>
         [HttpGet()]
         public ApiResponse Index([FromQuery] PaginationRequest pagination, [FromQuery] string type)
         {
@@ -22,6 +25,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{AdminTransportController}/{transportId}
+        /// <summary>
+        /// Получение информации о транспортном средстве по id
+        /// </summary>
         [HttpGet("{transportId}")]
         public ApiResponse Get([FromRoute] long transportId)
         {
@@ -29,6 +35,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //POST: api/{AdminTransportController}
+        /// <summary>
+        /// Создание нового транспортного средства
+        /// </summary>
         [HttpPost()]
         public ApiResponse Post([FromBody] TransportAdminCreateRequest transport)
         {
@@ -36,6 +45,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //PUT: api/{AdminTransportController/{id}}
+        /// <summary>
+        /// Изменение транспортного средства по id
+        /// </summary>
         [HttpPut("{id}")]
         public ApiResponse Edit([FromRoute] long id, [FromBody] TransportAdminCreateRequest transport)
         {
@@ -43,6 +55,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //DELETE: api/{AdminTransportController/{id}}
+        /// <summary>
+        /// Удаление транспорта по id
+        /// </summary>
         [HttpDelete("{id}")]
         public ApiResponse Delete([FromRoute] long id)
         {

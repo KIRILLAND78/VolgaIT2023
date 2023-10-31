@@ -16,6 +16,9 @@ namespace VolgaIT2023.Controllers
         public AdminAccountController([FromServices] AccountAdminService accountAdminService) { _accountAdminService = accountAdminService; }
 
         //GET: api/{AdminAccountController}
+        /// <summary>
+        /// Получение списка всех аккаунтов
+        /// </summary>
         [HttpGet()]
         public ApiResponse Index([FromQuery] PaginationRequest pagination)
         {
@@ -23,6 +26,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //GET: api/{AdminAccountController}/{id}
+        /// <summary>
+        /// Получение информации об аккаунте по id
+        /// </summary>
         [HttpGet("{id}")]
         public ApiResponse Get([FromRoute] long id)
         {
@@ -30,6 +36,9 @@ namespace VolgaIT2023.Controllers
         }
 
         //POST: api/{AdminAccountController}
+        /// <summary>
+        /// Создание администратором нового аккаунта
+        /// </summary>
         [HttpPost]
         public ApiResponse Create([FromBody] AccountAdminCreateRequest account)
         {
@@ -37,17 +46,23 @@ namespace VolgaIT2023.Controllers
         }
 
         //PUT: api/{AdminAccountController}/{accountId}
-        [HttpPut("{accountId}")]
-        public ApiResponse Edit([FromRoute] long accountId, [FromBody] AccountAdminCreateRequest account)
+        /// <summary>
+        /// Изменение администратором аккаунта по id
+        /// </summary>
+        [HttpPut("{id}")]
+        public ApiResponse Edit([FromRoute] long id, [FromBody] AccountAdminCreateRequest account)
         {
-            return new ApiResponse(_accountAdminService.UpdateAccount(accountId, account));
+            return new ApiResponse(_accountAdminService.UpdateAccount(id, account));
         }
 
         //DELETE: api/{AdminAccountController}/{accountId}
-        [HttpDelete("{accountId}")]
-        public ApiResponse Delete([FromRoute] long accountId)
+        /// <summary>
+        /// Удаление аккаунта по id
+        /// </summary>
+        [HttpDelete("{id}")]
+        public ApiResponse Delete([FromRoute] long id)
         {
-            return new ApiResponse(_accountAdminService.DeleteAccount(accountId));
+            return new ApiResponse(_accountAdminService.DeleteAccount(id));
         }
     }
 }

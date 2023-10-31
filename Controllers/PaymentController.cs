@@ -13,11 +13,13 @@ namespace VolgaIT2023.Controllers
         PaymentService _paymentService;
         public PaymentController([FromServices] PaymentService paymentService) { _paymentService = paymentService; }
         //POST: api/{PaymentController}/Hesoyam/{accountId}
+        /// <summary>
+        /// Добавляет на баланс аккаунта с id={accountId} 250 000 денежных единиц.
+        /// </summary>
         [HttpPost("Hesoyam/{accountId}")]
         public ApiResponse Payment([FromRoute] long accountId)
         {
             return new ApiResponse(_paymentService.Hesoyam(accountId));
-
         }
     }
 }
